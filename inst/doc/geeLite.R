@@ -1,0 +1,146 @@
+## ----global-options, include = FALSE------------------------------------------
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+## ----install-packages, include = FALSE----------------------------------------
+# Check that required packages are available without installing them
+required_pkgs <- c("dplyr", "leaflet", "withr", "sf")
+missing_pkgs <- required_pkgs[!vapply(
+  required_pkgs, requireNamespace, logical(1), quietly = TRUE)]
+
+if (length(missing_pkgs) > 0) {
+  stop(paste0("Missing packages: ", paste(missing_pkgs, collapse = ", "),
+              ".\nPlease install them manually before running this vignette."))
+}
+
+# Define a temporary path for SQLite database
+path_to_db <- withr::local_tempdir()
+
+## ----setup, include = FALSE---------------------------------------------------
+# Load the necessary packages
+library(geeLite)
+library(withr)
+
+# Set chunk evaluation flag based on GEE authentication status
+run_chunks <- geeLite:::check_rgee_ready()
+
+# Set the time zone to UTC temporarily during vignette execution
+withr::local_timezone("UTC")
+
+## ----eval = FALSE-------------------------------------------------------------
+# # Install devtools if not installed
+# # install.packages("devtools")
+# 
+# # Install geeLite from GitHub
+# devtools::install_github("mtkurbucz/geeLite")
+# 
+# # Install Python dependencies and setup rgee
+# geeLite::gee_install()
+
+## ----config-setup, warning = FALSE, eval = FALSE------------------------------
+# # Define the path for the SQLite database
+# path <- path_to_db
+# 
+# # Create a configuration for Somalia (SO) and Yemen (YE) to collect NDVI data
+# set_config(
+#   path = path,
+#   regions = c("SO", "YE"),
+#   source = list(
+#     "MODIS/061/MOD13A2" = list(
+#       "NDVI" = c("mean", "sd")
+#     )
+#   ),
+#   resol = 3,
+#   start = "2020-01-01"
+# )
+
+## ----data-collection, eval = FALSE--------------------------------------------
+# # Collect the data and store it in the SQLite database
+# run_geelite(path = path)
+
+## ----config-modification, eval = FALSE----------------------------------------
+# # Add more statistics to the NDVI band and include EVI data
+# modify_config(
+#   path = path,
+#   keys = list(
+#     c("source", "MODIS/061/MOD13A2", "NDVI"),
+#     c("source", "MODIS/061/MOD13A2", "EVI")
+#   ),
+#   new_values = list(
+#     c("mean", "min", "max"),
+#     c("mean", "sd")
+#   )
+# )
+
+## ----reading-analyzing, eval = FALSE------------------------------------------
+# # Read the data from the database, aggregate to monthly frequency by default
+# db <- read_db(path = path)
+# 
+# # Read the data with custom aggregation functions
+# db <- read_db(path = path, aggr_funs = list(
+#   function(x) mean(x, na.rm = TRUE),
+#   function(x) sd(x, na.rm = TRUE))
+# )
+
+## ----collecting-data-example, warning = FALSE, eval = run_chunks--------------
+# Define the path for the SQLite database
+path <- path_to_db
+
+# Set the configuration file for NDVI data collection
+set_config(
+  path = path,
+  regions = c("SO", "YE"),
+  source = list(
+    "MODIS/061/MOD13A2" = list(
+      "NDVI" = c("mean", "sd")
+    )
+  ),
+  resol = 3,
+  start = "2020-01-01"
+)
+
+# Collect the data
+run_geelite(path = path)
+
+# Read the data from the database
+db <- read_db(path = path, freq = "month")
+
+## ----visualize-ndvi-leaflet, eval = run_chunks--------------------------------
+# Load necessary packages
+library(leaflet)
+library(dplyr)
+library(sf)
+
+# Read database and merge grid with MODIS data
+sf <- merge(db$grid, db$`MODIS/061/MOD13A2/NDVI/mean`, by = "id")
+
+# Select the date to visualize
+ndvi <- sf$`2020-01-01`
+
+# Create a color palette function based on the values
+color_pal <- colorNumeric(palette = "viridis", domain = ndvi)
+
+# Create the leaflet map
+leaflet(data = sf) %>%
+  addTiles() %>%                            # Add base tiles
+  addPolygons(
+    fillColor = color_pal(ndvi),            # Fill color
+    color = "#BDBDC3",                      # Border color
+    weight = 1,                             # Border weight
+    opacity = 1,                            # Border opacity
+    fillOpacity = 0.9                       # Fill opacity
+  ) %>%
+  addScaleBar(position = "bottomleft") %>%  # Add scale bar
+  addLegend(
+    pal = color_pal,                        # Color palette
+    values = ndvi,                          # Data values to map
+    title = "Mean NDVI",                    # Legend title
+    position = "bottomright"                # Legend position
+  )
+
+## ----drive-mode, eval = FALSE-------------------------------------------------
+# # Collect and store data using drive mode
+# run_geelite(path = path, mode = "drive")
+
