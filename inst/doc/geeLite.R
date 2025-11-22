@@ -85,60 +85,60 @@ withr::local_timezone("UTC")
 # )
 
 ## ----collecting-data-example, warning = FALSE, eval = run_chunks--------------
-# Define the path for the SQLite database
-path <- path_to_db
-
-# Set the configuration file for NDVI data collection
-set_config(
-  path = path,
-  regions = c("SO", "YE"),
-  source = list(
-    "MODIS/061/MOD13A2" = list(
-      "NDVI" = c("mean", "sd")
-    )
-  ),
-  resol = 3,
-  start = "2020-01-01"
-)
-
-# Collect the data
-run_geelite(path = path)
-
-# Read the data from the database
-db <- read_db(path = path, freq = "month")
+# # Define the path for the SQLite database
+# path <- path_to_db
+# 
+# # Set the configuration file for NDVI data collection
+# set_config(
+#   path = path,
+#   regions = c("SO", "YE"),
+#   source = list(
+#     "MODIS/061/MOD13A2" = list(
+#       "NDVI" = c("mean", "sd")
+#     )
+#   ),
+#   resol = 3,
+#   start = "2020-01-01"
+# )
+# 
+# # Collect the data
+# run_geelite(path = path)
+# 
+# # Read the data from the database
+# db <- read_db(path = path, freq = "month")
 
 ## ----visualize-ndvi-leaflet, eval = run_chunks--------------------------------
-# Load necessary packages
-library(leaflet)
-library(dplyr)
-library(sf)
-
-# Read database and merge grid with MODIS data
-sf <- merge(db$grid, db$`MODIS/061/MOD13A2/NDVI/mean`, by = "id")
-
-# Select the date to visualize
-ndvi <- sf$`2020-01-01`
-
-# Create a color palette function based on the values
-color_pal <- colorNumeric(palette = "viridis", domain = ndvi)
-
-# Create the leaflet map
-leaflet(data = sf) %>%
-  addTiles() %>%                            # Add base tiles
-  addPolygons(
-    fillColor = color_pal(ndvi),            # Fill color
-    color = "#BDBDC3",                      # Border color
-    weight = 1,                             # Border weight
-    opacity = 1,                            # Border opacity
-    fillOpacity = 0.9                       # Fill opacity
-  ) %>%
-  addScaleBar(position = "bottomleft") %>%  # Add scale bar
-  addLegend(
-    pal = color_pal,                        # Color palette
-    values = ndvi,                          # Data values to map
-    title = "Mean NDVI",                    # Legend title
-    position = "bottomright"                # Legend position
-  )
+# # Load necessary packages
+# library(leaflet)
+# library(dplyr)
+# library(sf)
+# 
+# # Read database and merge grid with MODIS data
+# sf <- merge(db$grid, db$`MODIS/061/MOD13A2/NDVI/mean`, by = "id")
+# 
+# # Select the date to visualize
+# ndvi <- sf$`2020-01-01`
+# 
+# # Create a color palette function based on the values
+# color_pal <- colorNumeric(palette = "viridis", domain = ndvi)
+# 
+# # Create the leaflet map
+# leaflet(data = sf) %>%
+#   addTiles() %>%                            # Add base tiles
+#   addPolygons(
+#     fillColor = color_pal(ndvi),            # Fill color
+#     color = "#BDBDC3",                      # Border color
+#     weight = 1,                             # Border weight
+#     opacity = 1,                            # Border opacity
+#     fillOpacity = 0.9                       # Fill opacity
+#   ) %>%
+#   addScaleBar(position = "bottomleft") %>%  # Add scale bar
+#   addLegend(
+#     pal = color_pal,                        # Color palette
+#     values = ndvi,                          # Data values to map
+#     title = "Mean NDVI",                    # Legend title
+#     position = "bottomright"                # Legend position
+#   )
 
 ## ----drive-mode, eval = FALSE-------------------------------------------------
 # # Collect and store data using drive mode
