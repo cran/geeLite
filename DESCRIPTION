@@ -1,7 +1,7 @@
 Package: geeLite
 Type: Package
 Title: Building and Managing Local Databases from 'Google Earth Engine'
-Version: 1.0.5
+Version: 1.0.6
 Authors@R: c(
   person("Marcell T.", "Kurbucz", email = "m.kurbucz@ucl.ac.uk", role = c("aut", "cre")),
   person("Bo Pieter Johannes", "Andrée", email = "bandree@worldbank.org", role = "aut"))
@@ -17,9 +17,9 @@ Imports: rnaturalearthdata, rnaturalearth, googledrive, data.table,
 Suggests: testthat (>= 3.0.0), rmarkdown, optparse, leaflet, withr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-12-09 11:26:03 UTC; mtkurbucz
+Packaged: 2025-12-11 14:47:11 UTC; mtkurbucz
 Author: Marcell T. Kurbucz [aut, cre],
   Bo Pieter Johannes Andrée [aut]
 Maintainer: Marcell T. Kurbucz <m.kurbucz@ucl.ac.uk>
 Repository: CRAN
-Date/Publication: 2025-12-09 12:10:02 UTC
+Date/Publication: 2025-12-11 23:40:02 UTC

@@ -1,14 +1,14 @@
-404bfb2b048e8a05ee6b9db8e6e45966 *DESCRIPTION
-dba5f16ed7ee43f3fee22b7f1dbe07ed *NAMESPACE
-a51e5eb27b7d4b2759869d829f2746f9 *R/access_db.R
+42412e658a7b949116003e5950e2d54d *DESCRIPTION
+7f5f3eb832c46230a4cc13aeef171e96 *NAMESPACE
+7e3e9769f1754bde75c120ae40fd6deb *R/access_db.R
 8e247db9883bf00169a079ba1a6a44d7 *R/fetch_regions.R
 6d38d5fd0c363e9650972336900e6a82 *R/gee_install.R
 646b68c9700ead3793e8138260babbd8 *R/get_json.R
 126bdcacf5da27a4aa6a09a40087e270 *R/modify_config.R
-99182c00cb6373d9b97d4f8b3ea0431e *R/run_geelite.R
+7f38d96400bc5a6de5107f10fcb2b8b4 *R/run_geelite.R
 8fbc74e06a5f13f91346f4f4b7d01c8a *R/set_cli.R
 8df357479f8bb4c685ad447d6ef319e4 *R/set_config.R
-db6a498f94819a93b0d2cb409d64d685 *R/utils.R
+a927f8be5ea4f98f69d625fc3da7188f *R/utils.R
 a5c1a2dfdd002e5fb1fa352735efbc1d *README.md
 11a3136049a2aef854a0aa7d245e57c8 *build/vignette.rds
 7db6f948b295f7ab16b7a77425be3f58 *inst/cli/fetch_regions.R
@@ -24,7 +24,7 @@ d4c6d42ab724b638c0c4b761b4a55504 *inst/cli/set_cli.R
 caac656d91bdd98b336c5cd10039c4a6 *inst/doc/geeLite.R
 ebfd27c96d82783bca8d69b225ec4e46 *inst/doc/geeLite.Rmd
 47b585aedd7179af7b4062fd364d2c11 *inst/doc/geeLite.html
-74547f08bd14242583d2a7c9f1ae95f9 *man/aggr_by_freq.Rd
+92723424193c699acfa3970789f8bdaa *man/aggr_by_freq.Rd
 6ae8df5e857c5903e46a6e7c5fd09d93 *man/batch_drive_export.Rd
 dbd0d01ba1c3404ab37e12383765ce39 *man/check_rgee_ready.Rd
 6b9ecd9eb1faa4316c8d7c38f50ed8c3 *man/clean_drive_folders_by_name.Rd
@@ -41,7 +41,7 @@ d9644cbdb609c72fd3233823409223fe *man/extract_drive_stats.Rd
 74087f983d21c0ebc7aa10b5fa73d1f9 *man/fetch_country_regions.Rd
 6a546d585ac6b775cf2d3690a2431ad4 *man/fetch_regions.Rd
 389c2b97b2b3c86224a94c03e5ef4fe8 *man/fetch_state_regions.Rd
-ede5cc800af58a302f1adc22af7a97d6 *man/fetch_vars.Rd
+33d1d0e4a42a454a77274a97576e02b0 *man/fetch_vars.Rd
 4f09638dd9f02359d63a58762b3d3f62 *man/gee_install.Rd
 55a5f692b04ff9984bce3c738b9cf0f0 *man/gee_message.Rd
 d6bba20bb17d33eca25835e168ae4715 *man/gen_messages.Rd
@@ -57,7 +57,7 @@ b90ee55dc3f223fa38ffb52b1f89016a *man/get_json.Rd
 ef07a499536f11b0e0ae40fc50986f4b *man/get_shapes.Rd
 9c022944ad3d6c25c2c0c8fb7fb13a7f *man/get_state.Rd
 882ca3fd57d138ae26bc6425a206a3dd *man/get_task.Rd
-9bfacfd92cd7e565f5dd2513effc4e28 *man/init_postp.Rd
+e739e3ac1c2a0f9e383a553ad7c4cbc7 *man/init_postp.Rd
 b78126493d3fbe4313a0497aa1d7be6d *man/linear_interp.Rd
 6f14145666d46baab7091402e65b0769 *man/load_external_postp.Rd
 50cced0d2b225a995c8f83b3d4270fcf *man/local_chunk_extract.Rd
@@ -67,9 +67,9 @@ fedd6f04bf05a91d677ffa577ca49865 *man/print_version.Rd
 259b549e2e6ce71b1a98996b6ac8e147 *man/process_single_file.Rd
 cc4bdb948fc3f903faa4c6269ebb9e75 *man/process_source_files.Rd
 91bb9fe2b21dd3dba73e229114efcab6 *man/process_vector.Rd
-a74419ffe0cc9b3f860d98c2ca7565f6 *man/read_db.Rd
+210f1e5d3a67d2248364dcd8b59c8935 *man/read_db.Rd
 c527da0965335215a25c33b01a982a2b *man/read_grid.Rd
-988f296a8e64feb9b00abcd120a1b440 *man/read_variables.Rd
+0e9f125ae6ba7523bbd076fd8e513343 *man/read_variables.Rd
 57d730f722d540277a409977af2af240 *man/remove_tables.Rd
 afe484a45a93c436f06120b983bfec7a *man/run_geelite.Rd
 652e7da31ef371dab1906faa016b0b50 *man/set_cli.Rd
@@ -79,7 +79,7 @@ afe484a45a93c436f06120b983bfec7a *man/run_geelite.Rd
 d458b733d44e923815dd6d8e50a314af *man/set_progress_bar.Rd
 a7fb209e0a98427c1ec07818970c0d7a *man/source_with_notification.Rd
 e4f27cda1926240395436fd9997e3ad8 *man/update_grid_stats.Rd
-f2bdf61fbd6f88d873d2c8ca82e42d46 *man/validate_params.Rd
+a56e2e44e3917226f96e5be4d15e6cf8 *man/validate_params.Rd
 0354dbc2338520199260907df6230c31 *man/validate_source_param.Rd
 d8f717057cea3305cc9ec2d69ed7bcae *man/validate_variables_param.Rd
 9ff8ae720aa276633073a14ad0c52c1a *man/write_grid.Rd
